@@ -24,6 +24,7 @@ export default class Habits extends Component {
     }
 
     handleDecreament = (habit) => {
+        // 배열을 직접 건드리면 안되니까 spread operator로 복사
         const habits = [...this.state.habits]
         const index = habits.indexOf(habit)
         const count = habits[index].count - 1
