@@ -1,7 +1,26 @@
+* {
+  box-sizing: border-box;
+}
+
 button {
   outline: none;
   border: 0;
   cursor: pointer;
+}
+
+.navBar {
+  font-size: 2rem;
+  padding: 1em;
+  background-color: blanchedalmond;
+}
+
+.navBar-logo {
+  color: green;
+  margin-right: 0.5em;
+}
+
+.navBar .habit-count {
+  background-color: green;
 }
 
 .habit {
