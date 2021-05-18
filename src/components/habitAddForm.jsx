@@ -1,30 +1,30 @@
-import React, { PureComponent } from 'react'
+// PureComponent를 function Component로 만들어보기
+import React, { memo } from 'react'
 
-class HabitAddForm extends PureComponent {
-  // react DOM요소 input 값에 접근하는 방법 - input에 ref로 연결해야됨
-  formRef = React.createRef()
-  inputRef = React.createRef()
-  onSubmit = (event) => {
-    //onSubmit의 디폴트 상태인 입력 후 refresh를 방지하게 해준다
+// memo는 PureComponent처럼 props가 변경되지 않으면 내부의 함수가 호출되지 않는다
+const HabitAddForm = memo((props) => {
+  const formRef = React.createRef()
+  const inputRef = React.createRef()
+
+  const onSubmit = (event) => {
     event.preventDefault()
-    const name = this.inputRef.current.value
-    name && this.props.onAdd(name)
-    //this.inputRef.current.value = ''
-    this.formRef.current.reset()
+    const name = inputRef.current.value
+    name && props.onAdd(name)
+    formRef.current.reset()
   }
-  render() {
-    return (
-      <form ref={this.formRef} className="add-form" onSubmit={this.onSubmit}>
-        <input
-          ref={this.inputRef}
-          type="itext"
-          className="add-input"
-          placeholder="Please enter your habit"
-        ></input>
-        <button className="add-button">Add</button>
-      </form>
-    )
-  }
-}
+
+  return (
+    // 함수니까 this 안쓰고 바로 접근 가능
+    <form ref={formRef} className="add-form" onSubmit={onSubmit}>
+      <input
+        ref={inputRef}
+        type="text"
+        className="add-input"
+        placeholder="Please enter your habit"
+      ></input>
+      <button className="add-button">Add</button>
+    </form>
+  )
+})
 
 export default HabitAddForm
