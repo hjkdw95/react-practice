@@ -1,6 +1,16 @@
 import React, { PureComponent } from 'react'
 
 class Habit extends PureComponent {
+  componentDidMount() {
+    // 컴포넌트에 아이템이 추가될 때 구현할 내용 기재
+    console.log(`habit ${this.props.habit.name} mounted`)
+  }
+
+  componentWillUnmount() {
+    // 컴포넌트에 아이템이 삭제될 때 구현할 내용 기재
+    console.log(`habit ${this.props.habit.name} will unmount`)
+  }
+
   handleIncrement = () => {
     this.props.onIncrement(this.props.habit)
   }
