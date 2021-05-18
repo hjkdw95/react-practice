@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 
-class HabitAddForm extends Component {
+class HabitAddForm extends PureComponent {
   // react DOM요소 input 값에 접근하는 방법 - input에 ref로 연결해야됨
   formRef = React.createRef()
   inputRef = React.createRef()

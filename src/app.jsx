@@ -14,19 +14,25 @@ class App extends Component {
 
   // 데이터 처리
   handleIncrement = (habit) => {
-    // state는 직접 수정할 수 없다
-    const habits = [...this.state.habits]
-    const index = habits.indexOf(habit)
-    habits[index].count++
+    // 렌더 부담을 줄이는 방식
+    const habits = this.state.habits.map((item) => {
+      // 아이템 id 와 habit id가 같은 경우, habit obj를 copy하되, count부분만 바꿔라
+      if (item.id === habit.id) {
+        return { ...habit, count: habit.count + 1 }
+      }
+      return item
+    })
     this.setState({ habits })
   }
 
   handleDecrement = (habit) => {
-    const habits = [...this.state.habits]
-    const index = habits.indexOf(habit)
-    const count = habits[index].count - 1
-    // state를 직접 수정한 것으로 좋지 않은 코드
-    habits[index].count = count < 0 ? 0 : count
+    const habits = this.state.habits.map((item) => {
+      if (item.id === habit.id) {
+        const count = habit.count - 1
+        return { ...habit, count: count < 0 ? 0 : count }
+      }
+      return item
+    })
     this.setState({ habits })
   }
 
@@ -41,8 +47,11 @@ class App extends Component {
   }
 
   handleReset = () => {
-    const habits = [...this.state.habits].map((habit) => {
-      habit.count = 0
+    // habit의 count가 0이 아닐때만 reset하도록 설정 (render최소화 위해)
+    const habits = this.state.habits.map((habit) => {
+      if (habit.count !== 0) {
+        return { ...habit, count: 0 }
+      }
       return habit
     })
     this.setState({ habits })
